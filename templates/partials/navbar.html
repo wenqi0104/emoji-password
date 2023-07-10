@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">Emoji Password Prototype</a>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/admin">Admin</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link" onclick="modalShow()">Logout</a>
+            </li>
+            <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        </div>
+                        <div class="modal-body">Select "Logout" if you are ready to log out.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" onclick="modalDismiss()">Cancel</button>
+                            <a class="btn btn-warning text-white" href="{% url 'portal:login' %}">Log out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </ul>
+
+
+
+    </div>
+
+
+
+  </div>
+</nav>
+
+<script type="text/javascript">
+	function modalShow(){
+		$('#logoutModal').modal('show');
+	}
+    function modalDismiss(){
+		$('#logoutModal').modal('hide');
+	}
+</script>

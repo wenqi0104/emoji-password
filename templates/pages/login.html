@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+    {% load static %}
+    <!-- Bootstrap css -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+  </head>
+  <body>
+        {# error message #}
+        {% if login_error %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Opos, {{ login_error }}.</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+        <div class="container-fluid col-5 mt-3">
+            <form class="text-center" action="{% url 'portal:login' %}" method="post">
+                {% csrf_token %}
+                <img class="mb-4" src="{% static 'imgs/fate.jpg' %}" alt="" width="122" height="87">
+                <h1 class="h2 mb-4 fw-normal fw-bold">Login</h1>
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" name="username" placeholder="Enter your username please">
+                  <label for="id_username">Username</label>
+                </div>
+
+                <div class="form-floating">
+                    <input readonly="true" class="form-control"  type="password" id="password" name="password" placeholder="Select your password please">
+                    <label for="password">Password</label>
+                    <button class="btn btn-outline-secondary mt-2" type="button" id="button-addon" onclick="typePassword('', true)">Clear Password</button>
+                </div>
+
+                <div id="passKeyboard" class="keyboardBox"></div>
+                <button class="my-5 w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+
+                <div>
+                    <a class="text-primary small" style="text-decoration: none" href="{% url 'portal:register' %}">Create an Account!</a>
+                </div>
+                <p class="mt-5 mb-3 text-muted">© Group AQ 2023</p>
+          </form>
+        </div>
+
+<!-- jQuery @ bootstrap (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'js/jquery-3.6.3.min.js' %}" ></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" >
+    <script>
+        function close(){
+            $("#loginError").attr("style","display:none; background-color: red");
+        }
+    </script>
+
+    <!-- virtual keyboard -->
+    <script>
+        // store the raw date objects for the emoji password
+      var rawData = [
+        { sign: '🥴', value: '1' },
+        { sign: '😓', value: '2' },
+        { sign: '😳', value: '3' },
+        { sign: '😂', value: '4' },
+        { sign: '😴', value: '5' },
+        { sign: '🤗', value: '6' },
+        { sign: '😍', value: '7' },
+        { sign: '😭', value: '8' },
+        { sign: '😷', value: '9' }
+      ];
+      var virtualCharacters = []
+      // random pick emoji password function
+      for (var i = 8; i >= 0; i--)
+        virtualCharacters.push(rawData.splice(Math.floor(Math.random() * i), 1)[0])
+
+      // render template
+      // set the tabindex property to the index of the objects in the array.
+      // The "onclick" property is set to call the "typePassword" function with a parameter of the "value" property of the clicked object.
+      // The innerHTML of the div is set to the "sign" property of the object.
+      // Finally, the div is added to an HTML element with the ID "passKeyboard."
+      for (var obj in virtualCharacters)
+        $("#passKeyboard").append(`<div tabindex="${obj}" class="inputKey" onclick="typePassword('${virtualCharacters[obj].value}')">${virtualCharacters[obj].sign}</div>`)
+
+      // key in function, password only can contain 4 emojis, and add reset function
+      function typePassword(value, isReset = false) {
+        if(isReset) {
+          $("#password").val('')
+        }
+        if($("#password").val().length < 4) {
+          $("#password").val($("#password").val() + value)
+        }
+      }
+    </script>
+  </body>
+</html>

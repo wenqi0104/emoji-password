@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid text-center">
+        <h1 class="text-secondary">Main page</h1>
+        <h3 class="text-success mt-4"> You are logged in</h3>
+        <h4  class="text-secondary mt-4">Your username:
+            <b class="fw-bold">{{ request.session.username }}</b>
+        </h4>
+    </div>
+{% endblock %}
